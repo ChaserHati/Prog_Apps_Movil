@@ -9,8 +9,9 @@ import { IonInput } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   username: string = "";
-  password!: number;
-
+  password: string = "";
+  validUser: boolean = false;
+  validPass: boolean = false;
   /* variables van sobre el constructor */
   constructor(private router: Router) { }
 
@@ -30,6 +31,12 @@ export class LoginPage implements OnInit {
      * the component to keep them in sync.
      */
     this.inputUsername.value = this.username = filteredValue;
+    this.inputUsername.value = this.username = filteredValue;
+    if (this.username.length <= 8 && this.username.length >= 3){
+      this.validUser = true;
+    } else {
+      this.validUser = false;
+    }
   }
 
   @ViewChild('inputPassword', { static: true }) inputPassword!: IonInput;
@@ -45,6 +52,11 @@ export class LoginPage implements OnInit {
      * the component to keep them in sync.
      */
     this.inputPassword.value = this.password = filteredValue;
+    if (this.password.length == 4){
+      this.validPass = true;
+    } else {
+      this.validPass = false;
+    }
   }
 
   enviarDatos(){

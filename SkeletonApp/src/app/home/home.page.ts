@@ -13,6 +13,7 @@ export class HomePage {
   apellido: string = "";
   educacion: string = "";
   alertButtons = ['OK'];
+  date: any;
 
   /* variables van sobre el constructor */
   constructor(private activerouter: ActivatedRoute, private router: Router) {
@@ -28,7 +29,7 @@ export class HomePage {
     this.nombre = "";
     this.apellido = "";
     this.educacion = "";
-
+    this.date = null;
   }
 
 }

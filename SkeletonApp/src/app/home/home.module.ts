@@ -7,7 +7,9 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -15,8 +17,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   declarations: [HomePage],
+  providers: [provideNativeDateAdapter()],
 })
 export class HomePageModule {}

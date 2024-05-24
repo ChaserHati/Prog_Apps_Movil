@@ -13,19 +13,19 @@
           <ion-input label="Usuario" labelPlacement="stacked" 
           [(ngModel)]="username" [counter]="true" maxlength="8" minlenght="3" 
           helperText="Usuario debe tener 3 a 8 carácteres."
-          [value]="username" (ionInput)="onInputUsername($event)" #inputUsername></ion-input>
+          [value]="username" (ionInput)="onInputUsername($event)" #inputUsername
+          required></ion-input>
         </div>
         <div class="ion-padding-start">
           <!-- debe ser 4 numeros-->
           <ion-input id="password-input" label="Password" type="password" labelPlacement="stacked" 
           [(ngModel)]="password" maxlength="4" minlenght="4" 
           helperText="Contraseña deben ser 4 números."
-          [value]="password" (ionInput)="onInputPassword($event)" #inputPassword><ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          [value]="password" (ionInput)="onInputPassword($event)" #inputPassword
+          required><ion-input-password-toggle slot="end"></ion-input-password-toggle>
           </ion-input>
         </div>
-        <ion-button (click)="enviarDatos()">Ingresar</ion-button>
-        <!-- convertir en link -->
-        <p href="#">Crea tu cuenta gratis</p>
+        <ion-button [disabled]="!(validPass&&validUser)" (click)="enviarDatos()">Ingresar</ion-button>
       </ion-list>
       
     </ion-col>
