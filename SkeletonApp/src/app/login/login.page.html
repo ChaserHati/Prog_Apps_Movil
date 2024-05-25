@@ -12,7 +12,7 @@
           <!-- debe ser alfanumerico-->
           <ion-input label="Usuario" labelPlacement="stacked" 
           [(ngModel)]="username" [counter]="true" maxlength="8" minlenght="3" 
-          helperText="Usuario debe tener 3 a 8 carácteres."
+          helperText="Usuario debe tener 3 a 8 carácteres." errorText="Usuario debe tener 3 a 8 carácteres."
           [value]="username" (ionInput)="onInputUsername($event)" #inputUsername
           required></ion-input>
         </div>
@@ -20,7 +20,7 @@
           <!-- debe ser 4 numeros-->
           <ion-input id="password-input" label="Password" type="password" labelPlacement="stacked" 
           [(ngModel)]="password" maxlength="4" minlenght="4" 
-          helperText="Contraseña deben ser 4 números."
+          helperText="Contraseña deben ser 4 números." errorText="Contraseña deben ser 4 números."
           [value]="password" (ionInput)="onInputPassword($event)" #inputPassword
           required><ion-input-password-toggle slot="end"></ion-input-password-toggle>
           </ion-input>
