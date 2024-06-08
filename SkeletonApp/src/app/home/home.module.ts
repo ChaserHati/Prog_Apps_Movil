@@ -11,6 +11,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
 
+import { MisDatosComponent } from '../components/mis-datos/mis-datos.component';
+import { ExperienciaLaboralComponent } from '../components/experiencia-laboral/experiencia-laboral.component';
+import { CertificadosComponent } from '../components/certificados/certificados.component';
+import { PageNotFoundComponent } from '../components/page-not-found/page-not-found.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +26,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
     MatInputModule,
     MatFormFieldModule,
   ],
-  declarations: [HomePage],
+  declarations: [HomePage, MisDatosComponent, ExperienciaLaboralComponent, CertificadosComponent, PageNotFoundComponent],
   providers: [provideNativeDateAdapter()],
 })
 export class HomePageModule {}

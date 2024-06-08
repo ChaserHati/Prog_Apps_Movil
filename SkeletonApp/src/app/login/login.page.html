@@ -11,21 +11,23 @@
         <div class="ion-padding-start">
           <!-- debe ser alfanumerico-->
           <ion-input label="Usuario" labelPlacement="stacked" 
+          (ionChange)="checkUserExists()"
           [(ngModel)]="username" [counter]="true" maxlength="8" minlenght="3" 
           helperText="Usuario debe tener 3 a 8 carácteres." errorText="Usuario debe tener 3 a 8 carácteres."
-          [value]="username" (ionInput)="onInputUsername($event)" #inputUsername
+          [value]="username" #inputUsername
           required></ion-input>
+          <p>Usuario existe? {{userExists}}</p>
         </div>
         <div class="ion-padding-start">
           <!-- debe ser 4 numeros-->
-          <ion-input id="password-input" label="Password" type="password" labelPlacement="stacked" 
+          <ion-input id="password-input" label="Password" type="password" type="number" labelPlacement="stacked" 
           [(ngModel)]="password" maxlength="4" minlenght="4" 
           helperText="Contraseña deben ser 4 números." errorText="Contraseña deben ser 4 números."
-          [value]="password" (ionInput)="onInputPassword($event)" #inputPassword
+          [value]="password" #inputPassword
           required><ion-input-password-toggle slot="end"></ion-input-password-toggle>
           </ion-input>
         </div>
-        <ion-button [disabled]="!(validPass&&validUser)" (click)="enviarDatos()">Ingresar</ion-button>
+        <ion-button>Ingresar</ion-button>
       </ion-list>
       
     </ion-col>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { IonInput } from '@ionic/angular';
+import { DBTaskService } from '../services/dbtask.service';
 
 @Component({
   selector: 'app-login',
@@ -8,55 +9,50 @@ import { IonInput } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
+  arregloSesionData: any = [{
+    user_name: '',
+    password: '',
+    active: ''
+  }]
+
+  userExists: boolean = false;
   username: string = "";
   password: string = "";
-  validUser: boolean = false;
-  validPass: boolean = false;
   /* variables van sobre el constructor */
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dbTaskService : DBTaskService) { }
 
   ngOnInit() {
+    this.dbTaskService.dbState().subscribe(res=>{
+      if (res){
+        this.dbTaskService.fetchSesionData().subscribe(item=>{
+          this.arregloSesionData = item;
+        })
+      }
+    })
   }
 
-  @ViewChild('inputUsername', { static: true }) inputUsername!: IonInput;
-
-  onInputUsername(ev: { target: any; }) {
-    const value = ev.target!.value;
-
-    // Removes non alphanumeric characters
-    const filteredValue = value.replace(/[^a-zA-Z0-9]+/g, '');
-
-    /**
-     * Update both the state variable and
-     * the component to keep them in sync.
-     */
-    this.inputUsername.value = this.username = filteredValue;
-    this.inputUsername.value = this.username = filteredValue;
-    if (this.username.length <= 8 && this.username.length >= 3){
-      this.validUser = true;
+  checkUserExists(){
+    if(this.arregloSesionData.includes(this.username)){
+      this.userExists = true;
     } else {
-      this.validUser = false;
+      this.userExists = false;
     }
   }
 
-  @ViewChild('inputPassword', { static: true }) inputPassword!: IonInput;
-
-  onInputPassword(ev: { target: any; }) {
-    const value = ev.target!.value;
-
-    // Removes non alphanumeric characters
-    const filteredValue = value.replace(/[^0-9]+/g, '');
-
-    /**
-     * Update both the state variable and
-     * the component to keep them in sync.
-     */
-    this.inputPassword.value = this.password = filteredValue;
-    if (this.password.length == 4){
-      this.validPass = true;
-    } else {
-      this.validPass = false;
+  modificar(x:any){
+    let navigationExtras: NavigationExtras = {
+      state:{
+        user_nameSent : x.user_name,
+        passwordSent : x.password,
+        activeSent: x.active
+      }
     }
+    this.router.navigate(['/'], navigationExtras)
+  }
+  eliminar(x: any){
+    this.dbTaskService.eliminarSesionData(x.user_name);
+    console.log("SesionData Eliminado")
   }
 
   enviarDatos(){
@@ -66,6 +62,7 @@ export class LoginPage implements OnInit {
         passwordInput: this.password
       }
     }
+    localStorage.setItem('username',this.username)
     this.router.navigate(['/home'], navigationExtras);
   }
 }

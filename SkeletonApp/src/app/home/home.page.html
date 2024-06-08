@@ -1,48 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>
-      Home
+      Blank
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-grid [fixed]="true">
-  <ion-row class="ion-align-items-center">
-    <ion-col>
-      <ion-title>¡Bienvenido!</ion-title>
-      <p class="ion-padding">Usuario: {{ username }}</p>
-      <ion-list [inset]="true">
-        <ion-list-header> Información Adicional</ion-list-header>
-        <ion-item>
-          <ion-input label="Nombre" [(ngModel)]="nombre"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Apellido" [(ngModel)]="apellido"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-icon name="school" slot="start"></ion-icon>
-          <ion-select label="Nivel de Educación" [(ngModel)]="educacion">
-            <ion-select-option value="Primaria">Primaria</ion-select-option>
-            <ion-select-option value="Secundaria">Secundaria</ion-select-option>
-            <ion-select-option value="Superior">Superior</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <mat-form-field>
-            <mat-label>Fecha de Nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="date">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </ion-item>
-      </ion-list>
-      <ion-button (click)="limpiar()">Limpiar</ion-button><ion-button id="mostrar">Mostrar</ion-button>
-      <ion-alert trigger="mostrar" header="Usuario" message="Su nombre es {{nombre}} {{apellido}}." [buttons]="alertButtons"
-></ion-alert>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-segment value="misDatos">
+        <ion-segment-button [(ngModel)]="segmento">
+          <ion-label>Mis Datos</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="experienciaLaboral">
+          <ion-label>Experiencia Laboral</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="certificados">
+          <ion-label>Certificados</ion-label>
+        </ion-segment-button>
+      </ion-segment>  
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <app-certificados></app-certificados>
+    <app-experiencia-laboral></app-experiencia-laboral>
+    <!-- contenido -->
+  </div>
+</ion-content>
