@@ -1,35 +1,45 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title>
+      Blank
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-grid [fixed]="true">
-  <ion-row class="ion-align-items-center">
-    <ion-col>
-      <ion-list>
-        <div class="ion-padding-start">
-          <!-- debe ser alfanumerico-->
-          <ion-input label="Usuario" labelPlacement="stacked" 
-          (ionChange)="checkUserExists()"
-          [(ngModel)]="username" [counter]="true" maxlength="8" minlenght="3" 
-          helperText="Usuario debe tener 3 a 8 carácteres." errorText="Usuario debe tener 3 a 8 carácteres."
-          [value]="username" #inputUsername
-          required></ion-input>
-          <p>Usuario existe? {{userExists}}</p>
-        </div>
-        <div class="ion-padding-start">
-          <!-- debe ser 4 numeros-->
-          <ion-input id="password-input" label="Password" type="password" type="number" labelPlacement="stacked" 
-          [(ngModel)]="password" maxlength="4" minlenght="4" 
-          helperText="Contraseña deben ser 4 números." errorText="Contraseña deben ser 4 números."
-          [value]="password" #inputPassword
-          required><ion-input-password-toggle slot="end"></ion-input-password-toggle>
-          </ion-input>
-        </div>
-        <ion-button>Ingresar</ion-button>
-      </ion-list>
-      
-    </ion-col>
-  </ion-row>
-</ion-grid>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <!-- contenido aqui -->
+     <ion-item-sliding *ngFor="let x of arregloSesionData">
+      <ion-item>
+        <ion-label>{{x.user_name}}</ion-label>
+      </ion-item>
+     </ion-item-sliding>
+    <ion-list>
+      <div class="ion-padding-start">
+        <!-- debe ser alfanumerico-->
+        <ion-input label="Usuario" labelPlacement="stacked"
+        [(ngModel)]="username" [counter]="true" maxlength="8" minlenght="3" 
+        helperText="Usuario debe tener 3 a 8 carácteres." errorText="Usuario debe tener 3 a 8 carácteres."
+        [value]="username" #inputUsername
+        required></ion-input>
+      </div>
+      <div class="ion-padding-start">
+        <!-- debe ser 4 numeros-->
+        <ion-input id="password-input" label="Password" type="password" labelPlacement="stacked"
+        [(ngModel)]="password" maxlength="4" minlenght="4" 
+        helperText="Contraseña deben ser 4 números." errorText="Contraseña deben ser 4 números."
+        [value]="password" #inputPassword
+        required><ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </div>
+      <ion-button>Ingresar</ion-button>
+      <ion-button>Registrarse</ion-button>
+    </ion-list>
+  </div>
+</ion-content>

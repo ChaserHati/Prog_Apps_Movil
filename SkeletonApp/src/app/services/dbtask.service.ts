@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
-import { AlertController, Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SesionData } from './sesion-data';
 
@@ -11,15 +11,15 @@ export class DBTaskService {
   //variable para manipular la conexion a la base de datos
   public database!: SQLiteObject;
   //variable para la sentencia de creacion de tabla
-  tablaSesionData: string = "CREATE TABLE IF NOT EXISTS sesion_data(user_name TEXT(8) PRIMARY KEY NOT NULL, password INTEGER NOT NULL, active INTEGER NOT NULL);"
+  tablaSesionData: string = "CREATE TABLE IF NOT EXISTS sesion_data(user_name VARCHAR(8) PRIMARY KEY NOT NULL, password INTEGER NOT NULL, active INTEGER NOT NULL);";
   //variable para la sentencia de registros por defecto en la tabla
-  registroSesionData: string = "INSERT OR IGNORE INTO sesion_data() VALUES();"
+  registroSesionData: string = "INSERT OR IGNORE INTO sesion_data(user_name, password, active) VALUES('test', 1234, 0);";
   //observable para manipular todos los registros de la tabla sesion_data
   listaSesionData = new BehaviorSubject([]);
   //observable para manipular si la BD esta lista o no para su manipulacion
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private sqlite: SQLite, private platform: Platform, private toastController: ToastController, private alertController: AlertController) { 
+  constructor(private sqlite: SQLite, private platform: Platform, public toastController: ToastController) { 
     this.crearBD();
   }
 
@@ -37,7 +37,7 @@ export class DBTaskService {
         this.crearTablas();
       }).catch(e => {
         //muestro el mensaje de error en caso de ocurrir alguno
-        console.log("Error BD:"+e)
+        this.presentToast("Error BD:" + e);
       })
     })
   }
@@ -52,10 +52,11 @@ export class DBTaskService {
       this.buscarSesionData();
       //actualizar el status de la BD
       this.isDBReady.next(true);
-    } catch(e){
-      console.log("Error tablas:"+e)
+    } catch( e ){
+      this.presentToast("Error tablas:"+e);
     }
   }
+  
   buscarSesionData(){
     //retorno la ejecucion del select
     return this.database.executeSql('SELECT * FROM sesion_data', []).then(res=>{
@@ -68,12 +69,12 @@ export class DBTaskService {
             user_name: res.rows.item(i).user_name,
             password: res.rows.item(i).password,
             active: res.rows.item(i).active
-          })
+          });
         }
       }
       //actualizamos el observable de sesion_data
       this.listaSesionData.next(items as any);
-    })
+    });
   }
 
   dbState(){
@@ -82,11 +83,12 @@ export class DBTaskService {
 
   fetchSesionData(): Observable<SesionData[]>{
     return this.listaSesionData.asObservable();
+
   }
 
-  insertarSesionData(user_name: any, password: any, active: any){
-    let data = [user_name, password, active];
-    return this.database.executeSql('INSERT INTO sesion_data VALUES (test, 1234, 1)', data).then(res=>{
+  insertarSesionData(user_name: any, password: any){
+    let data = [user_name, password];
+    return this.database.executeSql('INSERT INTO sesion_data VALUES (?, ?, 0)', data).then(res=>{
       this.buscarSesionData();
     });
   }
@@ -109,5 +111,13 @@ export class DBTaskService {
     return this.database.executeSql('DELETE FROM sesion_data WHERE user_name = ?', [user_name]).then(a=>{
       this.buscarSesionData();
     })
+  }
+
+  async presentToast(mensaje: string){
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration:3000
+    });
+    toast.present();
   }
 }
