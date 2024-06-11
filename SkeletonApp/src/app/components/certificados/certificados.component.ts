@@ -10,7 +10,7 @@ export class CertificadosComponent  implements OnInit {
   certName: any;
   certObt: any;
   certToggle: any;
-  disableCertVenc: boolean = true;
+  disableCertVenc: boolean = false;
   certVenc: any;
 
   constructor() { }
@@ -22,10 +22,12 @@ export class CertificadosComponent  implements OnInit {
     if(localStorage.getItem('certObt')!='undefined'){
       this.certObt = localStorage.getItem('certObt');
     }
-    if(localStorage.getItem('certToggle')!='true'){
+    if(localStorage.getItem('certToggle')=='true'){
       this.certToggle = true;
+      this.disableCertVenc = false;
     }else{
       this.certToggle = false;
+      this.disableCertVenc = true;
     }
     if(localStorage.getItem('certVenc')!='undefined'){
       this.certVenc = localStorage.getItem('certVenc');
@@ -36,7 +38,10 @@ export class CertificadosComponent  implements OnInit {
     localStorage.setItem('certName', this.certName);
     localStorage.setItem('certObt', this.certObt);
     localStorage.setItem('certToggle', this.certToggle);
-    localStorage.setItem('certVenc', this.certVenc);
+    if(this.disableCertVenc==false){
+      localStorage.setItem('certVenc', this.certVenc);
+    }
+    
   }
 
   displayCertVenc(){

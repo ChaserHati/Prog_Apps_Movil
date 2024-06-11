@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
         })
       }
     });
-    if(localStorage.getItem('usuarioSesion')!='null'){
+    if(localStorage.getItem('usuarioSesion')!=null){
       this.router.navigate(['/home']);
     }
   }

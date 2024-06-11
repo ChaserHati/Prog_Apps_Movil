@@ -9,9 +9,9 @@ export class ExperienciaLaboralComponent  implements OnInit {
 
   empresa: any;
   annoInicio: any;
-  stillWorking: any;
+  annoToggle: any;
   annoTermino: any;
-  disableAnnoTermino: boolean = true;
+  disableAnnoTermino: boolean = false;
   cargo: any;
 
   constructor() { }
@@ -23,11 +23,13 @@ export class ExperienciaLaboralComponent  implements OnInit {
     if(localStorage.getItem('annoInicio')!='null'){
       this.annoInicio = localStorage.getItem('annoInicio');
     }
-    if(localStorage.getItem('stillWorking')!='null'){
-      if(localStorage.getItem('stillWorking')=='true'){
-        this.stillWorking = true;
+    if(localStorage.getItem('annoToggle')!='null'){
+      if(localStorage.getItem('annoToggle')=='true'){
+        this.annoToggle = true;
+        this.disableAnnoTermino = true;
       } else {
-        this.stillWorking = false;
+        this.annoToggle = false;
+        this.disableAnnoTermino = false;
       }
     }
     if(localStorage.getItem('annoTermino')!='null'){
@@ -41,13 +43,15 @@ export class ExperienciaLaboralComponent  implements OnInit {
   guardar(){
     localStorage.setItem('empresa', this.empresa);
     localStorage.setItem('annoInicio', this.annoInicio);
-    localStorage.setItem('stillWorking',this.stillWorking);
-    localStorage.setItem('annoTermino', this.annoTermino);
+    localStorage.setItem('annoToggle',this.annoToggle);
+    if(this.disableAnnoTermino==false){
+      localStorage.setItem('annoTermino', this.annoTermino);
+    }
     localStorage.setItem('cargo', this.cargo);
   }
 
   displayAnnoTermino(){
-    if(this.stillWorking==true){
+    if(this.annoToggle==true){
       this.disableAnnoTermino = true;
     } else {
       this.disableAnnoTermino = false;
