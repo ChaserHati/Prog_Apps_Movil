@@ -21,7 +21,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Fecha de Nacimiento</ion-label>
-        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+        <ion-datetime-button datetime="fechnac"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
             <ion-datetime locale="es-ES" [firstDayOfWeek]="1" presentation="date" [showDefaultButtons]="true" [(ngModel)]="fechnac" id="fechnac" (ionChange)="formatFechnac()"></ion-datetime>
