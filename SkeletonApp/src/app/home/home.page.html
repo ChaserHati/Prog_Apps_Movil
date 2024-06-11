@@ -1,31 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button fill="solid" color="danger" (click)="cerrarSesion()">
+        <ion-icon name="exit"></ion-icon>
+        <ion-label>Cerrar<br>Sesión</ion-label>
+      </ion-button>
+    </ion-buttons>
+    <ion-segment value="misDatos">
+      <ion-segment-button (click)="navDatos()" value="mis-datos">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Mis Datos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="navExp()" value="experiencia-laboral">
+        <ion-icon name="briefcase"></ion-icon>
+        <ion-label>Experiencia<br>Laboral</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="navCert()" value="certificados">
+        <ion-icon name="school"></ion-icon>
+        <ion-label>Certificados</ion-label>
+      </ion-segment-button>
+    </ion-segment>  
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-segment value="misDatos">
-        <ion-segment-button [(ngModel)]="segmento">
-          <ion-label>Mis Datos</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="experienciaLaboral">
-          <ion-label>Experiencia Laboral</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="certificados">
-          <ion-label>Certificados</ion-label>
-        </ion-segment-button>
-      </ion-segment>  
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <app-certificados></app-certificados>
-    <app-experiencia-laboral></app-experiencia-laboral>
-    <!-- contenido -->
+<ion-content>
+  <div class="container">
+    <ion-router-outlet></ion-router-outlet>
   </div>
 </ion-content>

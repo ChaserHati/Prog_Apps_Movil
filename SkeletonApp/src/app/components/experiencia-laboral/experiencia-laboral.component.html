@@ -1,3 +1,39 @@
-<p>
-  experiencia-laboral works!
-</p>
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <!-- contenido aqui -->
+     <ion-list>
+      <ion-item>
+        <ion-input type="text" label="Empresa" [(ngModel)]="empresa"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" label="Año Inicio" maxlength="4" [(ngModel)]="annoInicio"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Año Inicio</ion-label>
+        <ion-datetime-button datetime="annoInicio"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime locale="es-ES" presentation="year" [showDefaultButtons]="true" [(ngModel)]="annoInicio" id="annoInicio"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="stillWorking" (ionChange)="displayAnnoTermino()">¿Sigue Trabajando Ahí?</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Año Termino</ion-label>
+        <ion-datetime-button datetime="annoTermino"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime locale="es-ES" presentation="year" [showDefaultButtons]="true" [(ngModel)]="annoTermino" id="annoTermino"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" label="Cargo" [(ngModel)]="cargo"></ion-input>
+      </ion-item>
+      <ion-button (click)="guardar()">Guardar</ion-button>
+     </ion-list>
+  </div>
+</ion-content>
+

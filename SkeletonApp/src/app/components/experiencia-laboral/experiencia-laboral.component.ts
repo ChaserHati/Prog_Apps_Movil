@@ -7,8 +7,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExperienciaLaboralComponent  implements OnInit {
 
+  empresa: any;
+  annoInicio: any;
+  stillWorking: any;
+  annoTermino: any;
+  disableAnnoTermino: boolean = true;
+  cargo: any;
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(localStorage.getItem('empresa')!='null'){
+      this.empresa = localStorage.getItem('empresa');
+    }
+    if(localStorage.getItem('annoInicio')!='null'){
+      this.annoInicio = localStorage.getItem('annoInicio');
+    }
+    if(localStorage.getItem('stillWorking')!='null'){
+      if(localStorage.getItem('stillWorking')=='true'){
+        this.stillWorking = true;
+      } else {
+        this.stillWorking = false;
+      }
+    }
+    if(localStorage.getItem('annoTermino')!='null'){
+      this.annoTermino = localStorage.getItem('annoTermino');
+    }
+    if(localStorage.getItem('cargo')!='null'){
+      this.cargo = localStorage.getItem('cargo');
+    }
+  }
+
+  guardar(){
+    localStorage.setItem('empresa', this.empresa);
+    localStorage.setItem('annoInicio', this.annoInicio);
+    localStorage.setItem('stillWorking',this.stillWorking);
+    localStorage.setItem('annoTermino', this.annoTermino);
+    localStorage.setItem('cargo', this.cargo);
+  }
+
+  displayAnnoTermino(){
+    if(this.stillWorking==true){
+      this.disableAnnoTermino = true;
+    } else {
+      this.disableAnnoTermino = false;
+    }
+  }
 
 }

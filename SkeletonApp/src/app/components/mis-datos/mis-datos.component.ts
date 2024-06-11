@@ -1,7 +1,5 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AnimationController, IonInput } from '@ionic/angular';
-import type { Animation } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mis-datos',
@@ -9,66 +7,34 @@ import type { Animation } from '@ionic/angular';
   styleUrls: ['./mis-datos.component.scss'],
 })
 export class MisDatosComponent  implements OnInit {
-  
-  @ViewChildren(IonInput, { read: ElementRef })
-  inputElements: QueryList<ElementRef<HTMLIonInputElement>> | any;
-
-  username: string = "";
-  password!: number;
-  nombre: string = "";
-  apellido: string = "";
-  educacion: string = "";
+  username! : any;
+  nombre! : any;
+  apellido!: any;
+  fechnac: any = null;
+  formatedFechnac!: any;
+  educacion!: any;
   alertButtons = ['OK'];
-  date: any;
 
-  private animation!: Animation;
+  constructor(private router: Router) { }
 
-  constructor(private activerouter: ActivatedRoute, private router: Router, private animationCtrl: AnimationController) { 
-    this.activerouter.queryParams.subscribe(params =>{
-      if(this.router.getCurrentNavigation()?.extras?.state){
-        this.username = this.router.getCurrentNavigation()?.extras?.state?.['usernameInput'];
-        this.password = this.router.getCurrentNavigation()?.extras?.state?.['passwordInput'];
-      }
-    })
+  ngOnInit() {
+    this.username = localStorage.getItem('usuarioSesion');
+    this.nombre = localStorage.getItem('nombre');
+    this.apellido = localStorage.getItem('apellido');
+    this.educacion = localStorage.getItem('educacion');
+    if(localStorage.getItem('fechnac')!='undefined'){
+      this.fechnac = localStorage.getItem('fechnac');
+    }
   }
 
-  ngOnInit() {}
-
-  ngAfterViewInit(){
-    const itemA = this.animationCtrl
-    .create()
-    .addElement(this.inputElements.get(0).nativeElement)
-    .duration(1000)
-    .iterations(1)
-    .keyframes([
-      { offset: 0, transform: 'translate(0px)'},
-      { offset: 0.5, transform: 'translate(50px)'},
-      { offset: 1, transform: 'translate(0px)'}
-    ]);
-
-    const itemB = this.animationCtrl
-    .create()
-    .addElement(this.inputElements.get(1).nativeElement)
-    .duration(1000)
-    .iterations(1)
-    .keyframes([
-      { offset: 0, transform: 'translate(0px)'},
-      { offset: 0.5, transform: 'translate(50px)'},
-      { offset: 1, transform: 'translate(0px)'}
-    ]);
-
-    this.animation = this.animationCtrl
-    .create()
-    .duration(1000)
-    .iterations(1)
-    .addAnimation([itemA, itemB])
+  formatFechnac(){
+    this.formatedFechnac = this.fechnac.split('T')[0];
   }
 
-  limpiar(){
-    this.nombre = "";
-    this.apellido = "";
-    this.educacion = "";
-    this.date = null;
-    this.animation.play();
+  guardar(){
+    localStorage.setItem('nombre', this.nombre);
+    localStorage.setItem('apellido', this.apellido);
+    localStorage.setItem('educacion', this.educacion);
+    localStorage.setItem('fechnac', this.formatedFechnac);
   }
 }

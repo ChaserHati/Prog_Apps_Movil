@@ -1,3 +1,31 @@
-<p>
-  certificados works!
-</p>
+<ion-content>
+  <div id="container">
+    <!-- contenido aqui -->
+    <ion-list>
+      <ion-item>
+        <ion-input label="Nombre Certificado" type="text" [(ngModel)]="certName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Fecha de Obtención</ion-label>
+        <ion-datetime-button datetime="certObt"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime locale="es-ES" [firstDayOfWeek]="1" presentation="date" [showDefaultButtons]="true" [(ngModel)]="certObt" id="certObt"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="certToggle" (ionChange)="displayCertVenc()">¿Vence certificado?</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Fecha de Vencimiento</ion-label>
+        <ion-datetime-button [disabled]="disableCertVenc" datetime="certVenc"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime locale="es-ES" [firstDayOfWeek]="1" presentation="date" [showDefaultButtons]="true" [(ngModel)]="certVenc" id="certVenc"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+     </ion-list>
+  </div>
+</ion-content>

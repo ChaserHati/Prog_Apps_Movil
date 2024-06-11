@@ -63,8 +63,8 @@ export class DBTaskService {
       //creo mi lista de objetos de sesion_data vacio
       let items: SesionData[] = [];
       //si cuento mas de 0 filas en el resultSet entonces agrego los registros a items
-      if(res.rows.lenght > 0){
-        for(var i = 0; i < res.rows.lenght; i++){
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
           items.push({
             user_name: res.rows.item(i).user_name,
             password: res.rows.item(i).password,
